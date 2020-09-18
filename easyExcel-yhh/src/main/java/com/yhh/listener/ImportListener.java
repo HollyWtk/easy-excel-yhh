@@ -2,6 +2,7 @@ package com.yhh.listener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
@@ -41,7 +42,12 @@ public class ImportListener<T> extends AnalysisEventListener<T>{
     public void invoke(T data, AnalysisContext context) {
         CheckResult result = importHandler.validateData(data, saveList);
         if(result.isResult()) {
-            saveList.add(data);
+            result = importHandler.checkDataUnique(data);
+            if(Objects.isNull(result) || result.isResult()) {
+                saveList.add(data);
+            }else {
+                errorList.add(importHandler.errorList(data,result));
+            }
         }else {
             errorList.add(importHandler.errorList(data,result));
         }
@@ -57,7 +63,6 @@ public class ImportListener<T> extends AnalysisEventListener<T>{
             log.warn("error data :{}",errorList);
             importHandler.handleErrorData(errorList,fields.getErrorKey());
         }
-        System.out.println(saveList);
         importHandler.saveList(saveList, fields);
     }
 

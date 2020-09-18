@@ -16,7 +16,6 @@ import java.lang.annotation.Target;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface CheckIfNull {
+public @interface ErrorDesc {
 
-    boolean noNull() default false;
 }

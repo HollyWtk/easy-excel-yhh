@@ -3,6 +3,7 @@ package com.yhh.handler;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import com.yhh.annotaion.ErrorDesc;
 import com.yhh.entity.CheckResult;
 import com.yhh.entity.ImportBusiField;
 import com.yhh.utils.ImportHandlerUtil;
@@ -47,20 +48,18 @@ public interface ImportHandler<T> {
      * @return
      */
     default T errorList(T data,CheckResult result){
-        Field errorFields = null;
-        try {
-            errorFields = data.getClass().getDeclaredField("errorDesc");
-            errorFields.setAccessible(true);
-            errorFields.set(data, result.getMessage());
-        } catch (NoSuchFieldException e) {
-            System.out.println("no such Field : " + e.getMessage());
-            return data;
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        Field [] fields = data.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if(field.isAnnotationPresent(ErrorDesc.class)) {
+                field.setAccessible(true); 
+                try {
+                    field.set(data, result.getMessage());
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return data;
     };

@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**  
- * <p>Description: ignore check</p>  
+ * <p>Description: if field need check noNull</p>  
  * @author yhh  
  * @date 2020年9月11日  
  */
@@ -16,7 +16,6 @@ import java.lang.annotation.Target;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface CheckIgnore {
+public @interface CheckNoNull {
 
-    boolean check() default true;
 }

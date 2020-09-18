@@ -17,8 +17,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.yhh.annotaion.CheckIfNull;
 import com.yhh.annotaion.CheckIgnore;
+import com.yhh.annotaion.CheckNoNull;
 import com.yhh.annotaion.CheckUnique;
 import com.yhh.entity.CheckResult;
 import com.yhh.entity.FieldAttr;
@@ -96,9 +96,8 @@ public class ImportHandlerUtil {
                 }
                 attr.setColumnName(columnName);
                 attr.setField(humpToLine(field.getName()));
-                if(field.isAnnotationPresent(CheckIfNull.class)) {
-                    CheckIfNull ifNull = field.getAnnotation(CheckIfNull.class);
-                    attr.setNoNull(ifNull.noNull());
+                if(field.isAnnotationPresent(CheckNoNull.class)) {
+                    attr.setNoNull(true);
                 }
                 if(field.isAnnotationPresent(CheckUnique.class)) {
                     attr.setUnique(true);

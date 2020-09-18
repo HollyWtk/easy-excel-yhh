@@ -2,9 +2,10 @@ package com.yhh;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.yhh.annotaion.CheckIfNull;
 import com.yhh.annotaion.CheckIgnore;
+import com.yhh.annotaion.CheckNoNull;
 import com.yhh.annotaion.CheckUnique;
+import com.yhh.annotaion.ErrorDesc;
 
 import lombok.Data;
 
@@ -17,7 +18,7 @@ import lombok.Data;
 public class ImportEntity {
     
     @ExcelProperty(value = "姓名")
-    @CheckIfNull(noNull = true)
+    @CheckNoNull
     private String username;
     
     @CheckIgnore
@@ -32,5 +33,6 @@ public class ImportEntity {
     private String desc;
     
     @ExcelIgnore
+    @ErrorDesc
     private String errorDesc;
 }
