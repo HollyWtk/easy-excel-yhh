@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yhh.entity.CheckResult;
 import com.yhh.entity.ImportBusiField;
 import com.yhh.handler.ImportHandler;
@@ -29,7 +30,7 @@ public class DemoImportHandler implements ImportHandler<ImportEntity>{
     }
 
     @Override
-    public void handleErrorData(List<ImportEntity> data, String key) {
+    public void handleErrorData(List<JSONObject> data, String key) {
         // TODO Auto-generated method stub
         
     }

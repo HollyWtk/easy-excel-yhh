@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.fastjson.JSONObject;
 import com.yhh.entity.CheckResult;
 import com.yhh.entity.ImportBusiField;
 import com.yhh.handler.ImportHandler;
@@ -27,7 +28,7 @@ public class ImportListener<T> extends AnalysisEventListener<T>{
     
     List<T> saveList = new ArrayList<>(BATCH_COUNT);
     
-    List<T> errorList = new ArrayList<>();
+    List<JSONObject> errorList = new ArrayList<>();
     
     private ImportHandler<T> importHandler;
     

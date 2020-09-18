@@ -1,9 +1,8 @@
 package com.yhh.handler;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
-import com.yhh.annotaion.ErrorDesc;
+import com.alibaba.fastjson.JSONObject;
 import com.yhh.entity.CheckResult;
 import com.yhh.entity.ImportBusiField;
 import com.yhh.utils.ImportHandlerUtil;
@@ -47,27 +46,16 @@ public interface ImportHandler<T> {
      * @param result
      * @return
      */
-    default T errorList(T data,CheckResult result){
-        Field [] fields = data.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if(field.isAnnotationPresent(ErrorDesc.class)) {
-                field.setAccessible(true); 
-                try {
-                    field.set(data, result.getMessage());
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return data;
+    default JSONObject errorList(T data,CheckResult result){
+       JSONObject json = JSONObject.parseObject(JSONObject.toJSONString(data));
+       json.put("errorDesc", result.getMessage());
+       return json;
     };
 
     /**
      * @param data
      * @param key  save Key
      */
-    void handleErrorData(List<T> data,String key);
+    void handleErrorData(List<JSONObject> data,String key);
 
 }

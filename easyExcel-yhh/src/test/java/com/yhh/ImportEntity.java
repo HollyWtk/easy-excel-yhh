@@ -1,11 +1,9 @@
 package com.yhh;
 
-import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.yhh.annotaion.CheckIgnore;
 import com.yhh.annotaion.CheckNoNull;
 import com.yhh.annotaion.CheckUnique;
-import com.yhh.annotaion.ErrorDesc;
 
 import lombok.Data;
 
@@ -32,7 +30,4 @@ public class ImportEntity {
     @ExcelProperty(value = "描述")
     private String desc;
     
-    @ExcelIgnore
-    @ErrorDesc
-    private String errorDesc;
 }
